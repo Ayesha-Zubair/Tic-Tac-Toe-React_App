@@ -1,33 +1,24 @@
-import React, { useState } from "react";
-import Square from "./Components/square";
+import Board from "./Components/board";
+import React, {useState} from "react";
 
-export default function Board(){
+export default function Game(){
+  const [xIsNext, setXIsNext] = useState(true)
+  const [history, setHistory] = useState([Array(9).fill(null)])
+  const currentSquares = history[history.length - 1]
 
-  const [squares, setSquares] = useState(Array(9).fill(null))
-
-  function handleClick(i){
-    const nextSquares = squares.slice()
-    nextSquares[i] = "X"
-    setSquares(nextSquares)
+  function handlePlay(nextSquares){
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
   }
 
   return (
-    <React.Fragment>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
       </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+      <div className="game-info">
+        <ol>{/*TODO*/}</ol>
       </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
-    </React.Fragment>
-  );
+    </div>
+  )
 }
