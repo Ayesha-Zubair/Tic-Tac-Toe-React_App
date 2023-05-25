@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Square from "./square";
 
 export default function Board({xIsNext, squares, onPlay}){
